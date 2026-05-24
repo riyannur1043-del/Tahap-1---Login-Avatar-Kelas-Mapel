@@ -1,0 +1,183 @@
+import { useState } from "react";
+
+function App() {
+  const [nama, setNama] = useState("");
+  const [avatar, setAvatar] = useState("");
+  const [halaman, setHalaman] = useState("login");
+  const [kelasTerpilih, setKelasTerpilih] = useState("");
+
+  const avatars = [
+    "🧑‍🚀 Petualang Sains",
+    "🛡️ Ksatria Angka",
+    "📚 Penulis Cilik",
+    "🎨 Seniman Kreatif",
+    "🇮🇩 Penjaga Nusantara",
+  ];
+
+  const kelasList = [
+    "Kelas 1",
+    "Kelas 2",
+    "Kelas 3",
+    "Kelas 4",
+    "Kelas 5",
+    "Kelas 6",
+  ];
+  const mapelList = [
+  "🔢 Matematika",
+  "🇮🇩 Bahasa Indonesia",
+  "🌱 IPAS",
+  "🌍 Bahasa Inggris",
+  "☪️ PAIBP",
+  "🎨 Seni Budaya",
+  "🇮🇩 PPKn",
+];
+
+  if (halaman === "kelas") {
+    return (
+      <div style={{ maxWidth: "800px", margin: "auto", padding: "20px" }}>
+        <h1>📚 Pilih Kelas</h1>
+
+        <p>Nama: {nama}</p>
+        <p>Avatar: {avatar}</p>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "10px",
+          }}
+        >
+          {kelasList.map((kelas) => (
+            <button
+              key={kelas}
+              onClick={() => {
+                setKelasTerpilih(kelas);
+                setHalaman("mapel");
+              }}
+              style={{
+                padding: "15px",
+                fontSize: "16px",
+              }}
+            >
+              {kelas}
+            </button>
+          ))}
+        </div>
+
+        <br />
+
+        <button onClick={() => setHalaman("login")}>
+          ⬅ Kembali
+        </button>
+      </div>
+    );
+  }
+if (halaman === "mapel") {
+  return (
+    <div style={{ maxWidth: "900px", margin: "auto", padding: "20px" }}>
+      <h1>📖 Pilih Mata Pelajaran</h1>
+
+      <p>Nama: {nama}</p>
+      <p>Kelas: {kelasTerpilih}</p>
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: "10px",
+        }}
+      >
+        {mapelList.map((mapel) => (
+          <button
+            key={mapel}
+            style={{
+              padding: "20px",
+              fontSize: "16px",
+            }}
+          >
+            {mapel}
+          </button>
+        ))}
+      </div>
+
+      <br />
+
+      <button onClick={() => setHalaman("kelas")}>
+        ⬅ Kembali
+      </button>
+    </div>
+  );
+}
+  return (
+    <div
+      style={{
+        maxWidth: "800px",
+        margin: "auto",
+        padding: "20px",
+        textAlign: "center",
+      }}
+    >
+      <h1>🎮 EduVerse Nusantara Adventure</h1>
+
+      <h2>Login Siswa</h2>
+
+      <input
+        type="text"
+        placeholder="Masukkan Nama"
+        value={nama}
+        onChange={(e) => setNama(e.target.value)}
+        style={{
+          padding: "10px",
+          width: "80%",
+          marginBottom: "20px",
+        }}
+      />
+
+      <h3>Pilih Avatar</h3>
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: "10px",
+        }}
+      >
+        {avatars.map((item) => (
+          <button
+            key={item}
+            onClick={() => setAvatar(item)}
+            style={{
+              padding: "15px",
+              border:
+                avatar === item
+                  ? "3px solid green"
+                  : "1px solid gray",
+            }}
+          >
+            {item}
+          </button>
+        ))}
+      </div>
+
+      <div style={{ marginTop: "30px" }}>
+        <h3>Preview</h3>
+
+        <p>Nama: {nama || "-"}</p>
+        <p>Avatar: {avatar || "-"}</p>
+
+        <button
+          onClick={() => setHalaman("kelas")}
+          disabled={!nama || !avatar}
+          style={{
+            padding: "12px 20px",
+            marginTop: "15px",
+          }}
+        >
+          Lanjut ➜
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export default App;
